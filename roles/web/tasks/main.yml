@@ -1,0 +1,6 @@
+---
+- name: Download and extract application
+  unarchive:
+    src: "{{ app_zip_url }}"
+    dest: "/var/www/html"
+    remote_src: yes

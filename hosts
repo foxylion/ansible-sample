@@ -1,0 +1,17 @@
+[webservers]
+web1         ansible_host=10.78.212.10  ansible_ssh_private_key_file=.vagrant/machines/web1/virtualbox/private_key
+web2         ansible_host=10.78.212.11  ansible_ssh_private_key_file=.vagrant/machines/web2/virtualbox/private_key
+
+[dbservers]
+db1          ansible_host=10.78.212.20  ansible_ssh_private_key_file=.vagrant/machines/db1/virtualbox/private_key
+
+[lbservers]
+lb           ansible_host=10.78.212.30  ansible_ssh_private_key_file=.vagrant/machines/lb/virtualbox/private_key
+
+[monitoring]
+nagios       ansible_host=10.78.212.40  ansible_ssh_private_key_file=.vagrant/machines/nagios/virtualbox/private_key
+
+[all:vars]
+ansible_ssh_user=vagrant
+ansible_become=true
+ansible_become_user=root
