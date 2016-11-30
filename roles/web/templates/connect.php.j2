@@ -1,0 +1,8 @@
+<?php
+$server = "{{ hostvars['db1'].ansible_eth1.ipv4.address }}";
+$db_name = "{{ dbname }}";
+$db_user = "{{ dbuser }}";
+$db_pass = "{{ dbpassword }}";
+
+mysql_connect($server, $db_user, $db_pass) or die("Could not connect to server!");
+mysql_select_db($db_name) or die("Could not connect to database!");

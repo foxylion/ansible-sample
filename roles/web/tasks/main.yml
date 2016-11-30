@@ -1,6 +1,27 @@
 ---
-- name: Download and extract application
+
+- name: Configure SELinux to allow httpd to connect to remote databses
+  seboolean: name=httpd_can_network_connect state=true persistent=yes
+
+- name: Download application
+  get_url:
+    url: "{{ app_zip_url }}"
+    dest: "/var/tmp/application-{{ app_version }}.zip"
+  register: download
+
+- name: Extract application
   unarchive:
-    src: "{{ app_zip_url }}"
+    src: "/var/tmp/application-{{ app_version }}.zip"
     dest: "/var/www/html"
     remote_src: yes
+  when: download|changed
+
+- name: add index redirect file
+  template:
+    src: index.html.j2
+    dest: /var/www/html/index.html
+
+- name: update database connection
+  template:
+    src: connect.php.j2
+    dest: "/var/www/html/Simple_AJAX_Todo_List-{{ app_version }}/includes/connect.php"

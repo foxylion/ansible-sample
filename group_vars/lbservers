@@ -5,7 +5,7 @@
 mode: http
 
 # Port on which HAProxy should listen
-listenport: 8888
+listenport: 80
 
 # A name for the proxy daemon, this wil be the suffix in the logs.
 daemonname: myapplb
@@ -13,7 +13,7 @@ daemonname: myapplb
 # Balancing Algorithm. Available options:
 # roundrobin, source, leastconn, source, uri
 # (if persistance is required use, "source")
-balance: roundrobin 
+balance: roundrobin
 
 # Ethernet interface on which the load balancer should listen
 # Defaults to the first interface. Change this to:

@@ -13,37 +13,32 @@ capability to dynamically add and remove web server nodes from the deployment.
 It also includes examples to do a rolling update of a stack without affecting
 the service.
 
-(To use this demonstration with Amazon Web Services, please use the "aws" sub-directory.)
+### Starting Machines
 
-You can also optionally configure a Nagios monitoring node.
+Using `vagrant up` you can initialize Vagrant machines preconfigured to work
+with the predefined inventory (This requires Vagrant and VitualBox to be installed).
+
+Note: This spins up 5 machines with 1GB of RAM each, if you've not that much spare
+RAM - modify the Vagrantfile and reduce the usage.
 
 ### Initial Site Setup
 
-First we configure the entire stack by listing our hosts in the 'hosts'
-inventory file, grouped by their purpose:
-
-		[webservers]
-		webserver1
-		webserver2
-
-		[dbservers]
-		dbserver
-
-		[lbservers]
-		lbserver
-
-		[monitoring]
-		nagios
-
-After which we execute the following command to deploy the site:
+Now we execute the following command to deploy the site:
 
 		ansible-playbook -i hosts site.yml
 
+### Setup the database
+
+```
+vagrant ssh db1
+curl https://raw.githubusercontent.com/mattlitzinger/Simple_AJAX_Todo_List/master/task_list.sql | mysql -u root foodb
+```
+
 The deployment can be verified by accessing the IP address of your load
-balancer host in a web browser: http://<ip-of-lb>:8888. Reloading the page
+balancer host in a web browser: http://10.78.212.30. Reloading the page
 should have you hit different webservers.
 
-The Nagios web interface can be reached at http://<ip-of-nagios>/nagios/
+The Nagios web interface can be reached at http://10.78.212.40/nagios/
 
 The default username and password are "nagiosadmin" / "nagiosadmin".
 

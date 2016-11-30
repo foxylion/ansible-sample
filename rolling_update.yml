@@ -27,8 +27,6 @@
     with_items: groups.lbservers
 
   roles:
-  - common
-  - base-apache
   - web
 
   # These tasks run after the roles:

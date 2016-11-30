@@ -1,5 +1,20 @@
 ---
+# Variables for the web server configuration
+
+# Ethernet interface on which the web server should listen.
+# Defaults to the first interface. Change this to:
+#
+#  iface: eth1
+#
+# ...to override.
+#
+iface: 'eth1'
+
 # Variables here are applicable to all host groups
 
 httpd_port: 80
 ntpserver: 192.168.1.2
+
+dbuser: root
+dbname: foodb
+dbpassword: abc

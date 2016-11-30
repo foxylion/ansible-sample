@@ -18,7 +18,7 @@
 {% endif %}
 
 {% for host in groups.monitoring %}
--A INPUT -p tcp -s {{ hostvars[host].ansible_default_ipv4.address }} --dport 5666 -j ACCEPT
+-A INPUT -p tcp  --dport 5666 -j ACCEPT
 {% endfor %}
 
 -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT

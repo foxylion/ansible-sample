@@ -1,7 +1,7 @@
 # {{ ansible_managed }}
 
 define hostgroup {
-	hostgroup_name loadbalancers 
+	hostgroup_name loadbalancers
         alias Load Balancers
 }
 
@@ -10,8 +10,8 @@ define host {
         use                     linux-server
         host_name               {{ host }}
         alias                   {{ host }}
-        address                 {{ hostvars[host].ansible_default_ipv4.address }}
-        hostgroups              loadbalancers 
+        address                 {{ hostvars[host].ansible_eth1.ipv4.address }}
+        hostgroups              loadbalancers
 }
 define service {
 	use				local-service
