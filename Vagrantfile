@@ -6,6 +6,8 @@ Vagrant.configure("2") do |config|
     vb.cpus = 2
   end
 
+  config.vm.synced_folder ".", "/vagrant", disabled: true
+
   config.vm.define "web1" do |box|
     box.vm.network "private_network", ip: "10.78.212.10"
   end

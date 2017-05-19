@@ -6,22 +6,25 @@
 - name: Download application
   get_url:
     url: "{{ app_zip_url }}"
-    dest: "/var/tmp/application-{{ app_version }}.zip"
+    dest: "/tmp/application-{{ app_version }}.zip"
   register: download
 
 - name: Extract application
   unarchive:
-    src: "/var/tmp/application-{{ app_version }}.zip"
-    dest: "/var/www/html"
+    src: "/tmp/application-{{ app_version }}.zip"
+    dest: "/tmp"
     remote_src: yes
   when: download|changed
 
-- name: add index redirect file
-  template:
-    src: index.html.j2
-    dest: /var/www/html/index.html
+- name: Remove old application
+  file:
+    path: /var/www/html
+    state: absent
+
+- name: Add new application
+  shell: "cp -r /tmp/Simple_AJAX_Todo_List-{{ app_version }}/ /var/www/html"
 
 - name: update database connection
   template:
     src: connect.php.j2
-    dest: "/var/www/html/Simple_AJAX_Todo_List-{{ app_version }}/includes/connect.php"
+    dest: "/var/www/html/includes/connect.php"

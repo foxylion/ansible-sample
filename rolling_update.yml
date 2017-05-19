@@ -7,8 +7,8 @@
 # will be applied as part of the rolling update process.
 #
 
-# gather facts from monitoring nodes for iptables rules
-- hosts: monitoring
+# gather facts from all nodes for rules
+- hosts: all
   tasks: []
 
 - hosts: webservers
@@ -19,12 +19,12 @@
   - name: disable nagios alerts for this host webserver service
     nagios: 'action=disable_alerts host={{ inventory_hostname }} services=webserver'
     delegate_to: "{{ item }}"
-    with_items: groups.monitoring
+    with_items: "{{ groups.monitoring }}"
 
   - name: disable the server in haproxy
     haproxy: 'state=disabled backend=myapplb host={{ inventory_hostname }} socket=/var/lib/haproxy/stats'
     delegate_to: "{{ item }}"
-    with_items: groups.lbservers
+    with_items: "{{ groups.lbservers }}"
 
   roles:
   - web
@@ -32,14 +32,18 @@
   # These tasks run after the roles:
   post_tasks:
   - name: wait for webserver to come up
-    wait_for: 'host={{ inventory_hostname }} port=80 state=started timeout=80'
+    wait_for: 'host=127.0.0.1 port=80 state=started timeout=80'
 
   - name: enable the server in haproxy
     haproxy: 'state=enabled backend=myapplb host={{ inventory_hostname }} socket=/var/lib/haproxy/stats'
     delegate_to: "{{ item }}"
-    with_items: groups.lbservers
+    with_items: "{{ groups.lbservers }}"
 
   - name: re-enable nagios alerts
     nagios: 'action=enable_alerts host={{ inventory_hostname }} services=webserver'
     delegate_to: "{{ item }}"
-    with_items: groups.monitoring
+    with_items: "{{ groups.monitoring }}"
+
+  - name: "do a slow rollout, wait a few seconds"
+    pause:
+      seconds: 30

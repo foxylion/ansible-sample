@@ -1,5 +1,8 @@
 ---
 
 # this is the repository that holds our sample webapp
+
+# v1: d666bf33bc8b7f4a612cf106cbd22392b9f914be
+# v2: da84eacd7ba75063982fcedb9c1cbc1b98abf2c1
 app_version: 'd666bf33bc8b7f4a612cf106cbd22392b9f914be'
-app_zip_url: 'https://github.com/mattlitzinger/Simple_AJAX_Todo_List/archive/{{ app_version }}.zip'
+app_zip_url: 'https://github.com/foxylion/Simple_AJAX_Todo_List/archive/{{ app_version }}.zip'

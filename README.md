@@ -25,7 +25,9 @@ RAM - modify the Vagrantfile and reduce the usage.
 
 Now we execute the following command to deploy the site:
 
-		ansible-playbook -i hosts site.yml
+```
+ansible-playbook -i hosts site.yml
+```
 
 ### Setup the database
 
